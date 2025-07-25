@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Munchly - Cart</title>
+  <style>
+    /* Base and reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6f00 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #fff8e1;
+      font-weight: 800;
+      letter-spacing: 3px;
+      user-select: none;
+      text-shadow: 2px 2px 6px #b34700;
+    }
+    nav a {
+      margin-left: 30px;
+      font-weight: 700;
+      color: #fff8e1;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      text-shadow: 1px 1px 2px #b34700;
+    }
+    nav a:hover, nav a.active {
+      color: #fff;
+      text-shadow: 0 0 8px #fff3b0;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 1100px;
+      margin: 50px auto 80px auto;
+      background-color: #fff8e1;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(179, 71, 0, 0.5);
+      padding: 30px 40px;
+      color: #663300;
+    }
+    main h2 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      color: #b34700;
+      text-align: center;
+      text-shadow: 1px 1px 3px #ff6f00aa;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    thead {
+      background-color: #ff8c00;
+      color: #fff8e1;
+      text-shadow: 1px 1px 3px #b34700;
+    }
+    th, td {
+      padding: 15px 20px;
+      text-align: left;
+      border-bottom: 1px solid #ffb34799;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .dish-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #8a3e00;
+    }
+    .qty-input {
+      width: 50px;
+      padding: 6px 8px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ffb347;
+      text-align: center;
+      color: #663300;
+      font-weight: 700;
+      outline: none;
+    }
+    .qty-input:focus {
+      box-shadow: 0 0 8px #ff8c00;
+      border-color: #ff8c00;
+    }
+    .remove-btn {
+      background-color: #ff6f00;
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .remove-btn:hover {
+      background-color: #ff8c00;
+      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.7);
+      color: #663300;
+    }
+
+    .total-section {
+      text-align: right;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #b34700;
+      letter-spacing: 1.5px;
+      user-select: none;
+    }
+
+    .checkout-btn {
+      background-color: #ff8c00;
+      border: none;
+      padding: 15px 40px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: white;
+      border-radius: 40px;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto 0 auto;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      max-width: 300px;
+      text-align: center;
+    }
+    .checkout-btn:hover {
+      background-color: #ffb347;
+      box-shadow: 0 6px 18px rgba(255, 179, 71, 0.8);
+      color: #663300;
+    }
+
+    footer {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 22px 40px;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff8e1;
+      font-weight: 600;
+      box-shadow: inset 0 2px 4px rgba(255,140,0,0.8);
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      main {
+        padding: 25px 20px;
+        margin: 30px 20px 60px 20px;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        display: none;
+      }
+      tbody tr {
+        margin-bottom: 25px;
+        background: #fff1d6;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(179, 71, 0, 0.2);
+      }
+      tbody td {
+        padding: 10px 15px;
+        text-align: right;
+        position: relative;
+      }
+      tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 120px;
+        font-weight: 700;
+        color: #b34700;
+        text-align: left;
+      }
+      .qty-input {
+        width: 60px;
+      }
+      .checkout-btn {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Munchly</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="cart.html" class="active">Cart</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="more food.html">more food</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Your Cart</h2>
+
+    <table aria-label="Shopping Cart Items">
+      <thead>
+        <tr>
+          <th>Dish</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <tr>
+          <td class="dish-name" data-label="Dish">Margherita Pizza</td>
+          <td data-label="Price">$12.99</td>
+          <td data-label="Quantity">
+            <input class="qty-input" type="number" min="1" value="1" />
+          </td>
+          <td data-label="Subtotal" class="subtotal">$12.99</td>
+          <td data-label="Remove">
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="dish-name" data-label="Dish">Bruschetta</td>
+          <td data-label="Price">$7.99</td>
+          <td data-label="Quantity">
+            <input class="qty-input" type="number" min="1" value="2" />
+          </td>
+          <td data-label="Subtotal" class="subtotal">$15.98</td>
+          <td data-label="Remove">
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-section" aria-live="polite" aria-atomic="true">
+      Total: $<span id="total-amount">28.97</span>
+    </div>
+
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  </main>
+
+  <footer>
+    <p>Open daily: 10 AM - 10 PM | Contact: (555) 123-4567 | Address: 123 Foodie Lane, Flavor Town</p>
+    <p>&copy; 2025 Munchly</p>
+  </footer>
+
+  <script>
+    // Update subtotal and total when quantity changes
+    const cartItems = document.getElementById('cart-items');
+
+    function formatPrice(num) {
+      return num.toFixed(2);
+    }
+
+    function updateTotal() {
+      let total = 0;
+      const rows = cartItems.querySelectorAll('tr');
+      rows.forEach(row => {
+        const priceText = row.cells[1].textContent.replace('$', '');
+        const price = parseFloat(priceText);
+        const qty = row.querySelector('.qty-input').value;
+        const subtotalCell = row.querySelector('.subtotal');
+        const subtotal = price * qty;
+        subtotalCell.textContent = '$' + formatPrice(subtotal);
+        total += subtotal;
+      });
+      document.getElementById('total-amount').textContent = formatPrice(total);
+    }
+
+    // Listen for quantity changes
+    cartItems.addEventListener('input', e => {
+      if (e.target.classList.contains('qty-input')) {
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) {
+          e.target.value = 1;
+        }
+        updateTotal();
+      }
+    });
+
+    // Remove item row
+    function removeItem(button) {
+      const row = button.closest('tr');
+      row.remove();
+      updateTotal();
+    }
+
+    // Checkout alert (placeholder)
+    function checkout() {
+      alert('Thank you for your order! This is just a demo.');
+    }
+
+    // Initialize total on page load
+    updateTotal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Munchly - Login</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6f00 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #fff8e1;
+      font-weight: 800;
+      letter-spacing: 3px;
+      user-select: none;
+      text-shadow: 2px 2px 6px #b34700;
+    }
+    nav a {
+      margin-left: 30px;
+      font-weight: 700;
+      color: #fff8e1;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      text-shadow: 1px 1px 2px #b34700;
+    }
+    nav a:hover, nav a.active {
+      color: #fff;
+      text-shadow: 0 0 8px #fff3b0;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 400px;
+      margin: 70px auto 80px auto;
+      background-color: #fff8e1;
+      border-radius: 25px;
+      box-shadow: 0 12px 28px rgba(179, 71, 0, 0.5);
+      padding: 40px 35px;
+      color: #663300;
+      text-align: center;
+    }
+    main h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 35px;
+      letter-spacing: 2px;
+      color: #b34700;
+      text-shadow: 1px 1px 3px #ff6f00aa;
+      user-select: none;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #b34700;
+      user-select: none;
+      text-align: left;
+    }
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 2px solid #ffb347;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #663300;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #ff8c00;
+      box-shadow: 0 0 10px #ff8c00;
+    }
+    button {
+      padding: 15px 0;
+      background-color: #ff8c00;
+      border: none;
+      border-radius: 40px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 6px 15px rgba(255,140,0,0.7);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #ffb347;
+      box-shadow: 0 8px 22px rgba(255,179,71,0.9);
+      color: #663300;
+    }
+
+    .error-msg {
+      color: #cc3300;
+      font-weight: 700;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      display: none;
+      user-select: none;
+      text-align: left;
+    }
+
+    footer {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 22px 40px;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff8e1;
+      font-weight: 600;
+      box-shadow: inset 0 2px 4px rgba(255,140,0,0.8);
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        width: 90%;
+        padding: 30px 25px;
+        margin: 50px auto 60px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Munchly</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html" class="active">Login</a>
+      <a href="contact.html">Contact</a>
+      <a href="more food.html">more food</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Login to Munchly</h2>
+    <form id="login-form" novalidate>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      <div id="email-error" class="error-msg">Please enter a valid email.</div>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="********" required minlength="6" />
+      <div id="password-error" class="error-msg">Password must be at least 6 characters.</div>
+
+      <button type="submit">Login</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>Open daily: 10 AM - 10 PM | Contact: (555) 123-4567 | Address: 123 Foodie Lane, Flavor Town</p>
+    <p>&copy; 2025 Munchly</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+
+    function validateEmail(email) {
+      // Simple regex for email validation
+      const re = /^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$/;
+      return re.test(email);
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      let valid = true;
+
+      if (!validateEmail(emailInput.value.trim())) {
+        emailError.style.display = 'block';
+        valid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+
+      if (passwordInput.value.length < 6) {
+        passwordError.style.display = 'block';
+        valid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+
+      if (valid) {
+        alert('Logged in! (This is just a demo)');
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>

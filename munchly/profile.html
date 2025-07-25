@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Munchly - Profile</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6f00 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #fff8e1;
+      font-weight: 800;
+      letter-spacing: 3px;
+      user-select: none;
+      text-shadow: 2px 2px 6px #b34700;
+    }
+    nav a {
+      margin-left: 30px;
+      font-weight: 700;
+      color: #fff8e1;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      text-shadow: 1px 1px 2px #b34700;
+    }
+    nav a:hover, nav a.active {
+      color: #fff;
+      text-shadow: 0 0 8px #fff3b0;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 70px auto 80px auto;
+      background-color: #fff8e1;
+      border-radius: 25px;
+      box-shadow: 0 12px 28px rgba(179, 71, 0, 0.5);
+      color: #663300;
+      user-select: none;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      color: #b34700;
+      text-shadow: 1px 1px 3px #ff6f00aa;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      user-select: text;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px 15px;
+      border-radius: 15px;
+      border: 2px solid #ff8c00;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #b34700;
+      background-color: #fff3b0;
+      color: #663300;
+    }
+
+    button {
+      background-color: #ff8c00;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 14px 0;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255,140,0,0.7);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #ffb347;
+      color: #663300;
+      box-shadow: 0 8px 22px rgba(255,179,71,0.9);
+    }
+
+    footer {
+      background-color: rgba(255, 111, 0, 0.9);
+      padding: 22px 40px;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff8e1;
+      font-weight: 600;
+      box-shadow: inset 0 2px 4px rgba(255,140,0,0.8);
+      user-select: none;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Munchly</h1>
+    <nav>
+      <a href="menu.html">menu</a>
+      <a href="more.html">more food</a>
+      <a href="cart.html">cart</a>
+      <a href="login.html">login</a>
+      <a href="contact.html">contact</a>
+      <a href="profile.html" class="active">profile</a>
+      </nav>
+  </header>
+
+  <main>
+    <h2>Your Profile</h2>
+    <form id="profile-form">
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+      </div>
+      <div>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="New password" />
+      </div>
+      <div>
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" />
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>Open daily: 10 AM - 10 PM | Contact: (555) 123-4567 | Address: 123 Foodie Lane, Flavor Town</p>
+    <p>&copy; 2025 Munchly</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('profile-form');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const confirmPassword = form['confirm-password'].value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      // Simulate saving
+      alert(`Profile saved!\nName: ${name}\nEmail: ${email}`);
+      // Here you can add actual backend saving logic later
+    });
+  </script>
+</body>
+</html>
